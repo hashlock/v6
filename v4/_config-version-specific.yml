@@ -1,0 +1,5 @@
+---
+this_api_version: 4
+this_api_version_tag: "v4"
+this_api_version_status: "deprecated"
+version_url_prefix_apidoc: '/v4'

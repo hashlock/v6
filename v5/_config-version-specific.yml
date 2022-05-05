@@ -1,0 +1,7 @@
+---
+this_api_version: 5
+this_api_version_tag: "v5"
+this_api_version_status: "current"
+version_url_prefix_apidoc: '/v5'
+version_url_prefix_request: '/v5'
+version_url_prefix_response: '/v5'

@@ -1,0 +1,6 @@
+/tmp/
+.DS_Store
+.sass-cache/
+*.swp
+.idea
+*.iml

@@ -1,0 +1,140 @@
+---
+parent_category: reports
+parent_category_label: Reports
+
+path: '{{ site.version_url_prefix_request }}/report-snapshots/{snapshotId}'
+title: 'Report snapshot detail'
+
+sortorder: 11
+category-sortorder: 55
+type: GET
+
+layout: null
+---
+
+{.inline-code}This endpoint returns a list of widgets configured in reports configured in ThousandEyes. Seed this endpoint with a reportId found from the /reports endpoint. This endpoint requires the `View Reports` permission be assigned to the role of the user accessing this endpoint.
+
+### Parameters
+
+* `aid={aid}` optional and requires the user to be assigned to the target account group, specifies the account group context of the request, obtained from the `/account-groups` endpoint.  Specifying this parameter without the user being assigned to the target account will result in an error response. See [Account group context][overview-accountcontext] for more information
+* `{snapshotId}` the ID of the report snapshot you're interested in.
+
+### Request
+
+* no request body
+
+### Example
+
+`$ curl https://api.thousandeyes.com{{ site.version_url_prefix_request }}/report-snapshots/60886ebb-2466-444d-bbd8-74d5ea1402d2.json \
+  -u noreply@thousandeyes.com:g351mw5xqhvkmh1vq6zfm51c62wyzib2`
+
+### Response
+
+Returns details information about report snapshot including the list and configuration of the widgets.
+
+Field Name | Data Type | Notes
+:----------|-----------|----------|
+snapshotId | string | unique ID of the report snapshot
+snapshotName | string | name of the report snapshot
+createdDate | dateTime | the date/time when report snapshot was created
+isScheduled | boolean | true if report snapshot was generated from a schedule
+isShared | boolean | true if report snapshot is shared
+accountId | integer | ID of the account group that the snapshot belongs to
+timespan.startDate | dateTime | the date/time of beginning of report snapshot
+timespan.duration | integer | duration of report snapshot in seconds
+permalink | string | link to report snapshot in ThousandEyes Application
+apiLinks | array of apiLink objects | a list of links which can be followed to pull more information
+report | object | report this report snapshot is based upon.
+report.reportId | string | unique ID of the report
+report.title | string | title of the report
+report.isBuiltIn | boolean | true for built-in reports, false for user-created reports
+report.apiLinks | array of apiLink objects | a list of links which can be followed to pull more information
+report.accountId | integer | ID of the account group that the report belongs to
+report.createdBy | integer | ID of the user that created the report for which the snapshot was generated
+report.modifiedBy | integer | ID of the user that last modified the report at the time of snapshot creation
+report.modifiedDate | dateTime | the date/time when the report was last modified at the time the snapshot was created
+widgets | object | widgets in the snapshot. Refer to the Widget object description.
+permalink | string | link to report snapshot in ThousandEyes Application
+
+
+#### Header
+
+```HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 13 Apr 2017 09:41:13 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-store
+X-Organization-Rate-Limit-Limit: 970
+X-Organization-Rate-Limit-Remaining: 969
+X-Organization-Rate-Limit-Reset: 1492076520
+Strict-Transport-Security: max-age=31536000
+X-Server-Name: 1-2```
+
+#### Body
+
+```{
+    "reportSnapshots": [
+        {
+            "apiLinks": [...],
+            "createdDate": "2017-05-02 14:42:49",
+            "permalink": "https://app.thousandeyes.com/reports/snapshots/60886ebb-2466-444d-bbd8-74d5ea1402d2?__a=1",
+            "report": {
+                "apiLinks": [...],
+                "builtIn": 1,
+                "reportId": "2",
+                "reportName": "ThousandEyes Built-in: HTTP Server"
+            },
+            "scheduled": 0,
+            "shared": 0,
+            "snapshotId": "60886ebb-2466-444d-bbd8-74d5ea1402d2",
+            "snapshotName": "HTTP Server Report Snapshot",
+            "timeSpan": {
+                "duration": 604800,
+                "startDate": "2017-03-15 00:00:00"
+            },
+            "widgets": [
+                {
+                    "dataComponents": [
+                        {
+                            "apiLinks": [...],
+                            "dataComponentId": "59089917755cb04ee9944e44",
+                            "description": "Average Availability",
+                            "groupBy": [],
+                            "measure": "Mean",
+                            "metric": "Web - HTTP Server \u2014 Availability"
+                        },
+                        {
+                            "apiLinks": [...],
+                            "dataComponentId": "59089ae6755cb04ee977703b",
+                            "description": "Average Response Time",
+                            "groupBy": [],
+                            "measure": "Mean",
+                            "metric": "Web - HTTP Server \u2014 Response Time"
+                        },
+                        ...
+                    ],
+                    "title": "HTTP Server Overview",
+                    "type": "numbers"
+                },
+                {
+                    "dataComponents": [
+                        {
+                            "apiLinks": [...],
+                            "dataComponentId": "590897e4755cb04ee9776f5b",
+                            "groupBy": [],
+                            "measure": "Mean",
+                            "metric": "Web - HTTP Server \u2014 Availability"
+                        }
+                    ],
+                    "title": "Overall Average Availability",
+                    "type": "timeseries"
+                },
+                ...
+            ]
+        }
+    ]
+}```
+
+For error responses, see the [response status codes documentation][overview-responsestatuscodes].

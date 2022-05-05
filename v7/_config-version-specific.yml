@@ -1,0 +1,7 @@
+---
+this_api_version: 7
+this_api_version_tag: "v7"
+this_api_version_status: "preview"
+version_url_prefix_apidoc: '/v7'
+version_url_prefix_request: '/v7'
+version_url_prefix_response: '/v7'
